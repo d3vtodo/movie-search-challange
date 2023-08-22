@@ -1,34 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+import { Movie } from './types'
+import WITH_RESULTS from './mocks/with-results.json'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const movies = WITH_RESULTS.Search
+  const hasMovies = movies.length > 0
+  const [searchInput, setSearchInput] = useState<string | undefined>('')
+  const [moviesResult, setMoviesResult] = useState<Movie[]>([])
+
+  useEffect(() => {
+    // fetch(`https://www.omdbapi.com/?apikey=b5064bd3&s=${searchInput}`)
+    //   .then(async (res) => await res.json())
+    //   .then((res) => setMoviesResult(res))
+    //   .catch((err) => console.error(err))
+  }, [searchInput])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="page">
+      <header>
+        <h1>Movie Search</h1>
+        <form className="form">
+          <input
+            placeholder="Avengers, The Matrix, Imitation Game..."
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </form>
+      </header>
+
+      <main>
+        {hasMovies ? (
+          <ul>
+            {movies.map((movie) => {
+              return (
+                <li key={movie.imdbID}>
+                  <h3>{movie.Title}</h3>
+                  <p>{movie.Year}</p>
+                  <img src={movie.Poster} alt={movie.Title} />
+                </li>
+              )
+            })}
+          </ul>
+        ) : (
+          <p>No results</p>
+        )}
+      </main>
+    </div>
   )
 }
 
