@@ -1,0 +1,29 @@
+type MoviesProps = {
+  movies: { id: string; title: string; year: string; poster: string }[]
+}
+
+function MoviesList({ movies }: MoviesProps) {
+  return (
+    <ul>
+      {movies.map((movie) => {
+        return (
+          <li key={movie.id}>
+            <h3>{movie.title}</h3>
+            <p>{movie.year}</p>
+            <img src={movie.poster} alt={movie.title} />
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+export function NoResults() {
+  return <p>No movies found</p>
+}
+
+export default function Movies({ movies }: MoviesProps) {
+  const hasMovies = movies.length > 0
+
+  return hasMovies ? <MoviesList movies={movies} /> : <NoResults />
+}

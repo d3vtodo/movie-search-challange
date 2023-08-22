@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Movie } from './types'
-import WITH_RESULTS from './mocks/with-results.json'
 import './App.css'
+import Movies from './components/Movies'
+import { useMovies } from './hooks/useMovies'
 
 function App() {
-  const movies = WITH_RESULTS.Search
-  const hasMovies = movies.length > 0
+  const { movies } = useMovies()
   const [searchInput, setSearchInput] = useState<string | undefined>('')
-  const [moviesResult, setMoviesResult] = useState<Movie[]>([])
 
   useEffect(() => {
     // fetch(`https://www.omdbapi.com/?apikey=b5064bd3&s=${searchInput}`)
@@ -30,21 +28,7 @@ function App() {
       </header>
 
       <main>
-        {hasMovies ? (
-          <ul>
-            {movies.map((movie) => {
-              return (
-                <li key={movie.imdbID}>
-                  <h3>{movie.Title}</h3>
-                  <p>{movie.Year}</p>
-                  <img src={movie.Poster} alt={movie.Title} />
-                </li>
-              )
-            })}
-          </ul>
-        ) : (
-          <p>No results</p>
-        )}
+        <Movies movies={movies} />
       </main>
     </div>
   )
