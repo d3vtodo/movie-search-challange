@@ -3,6 +3,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 800px;
 }
 
 form {
@@ -18,20 +20,23 @@ form {
 main {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
-ul {
-  display: flex;
-  gap: 15px;
-  width: 1240px;
-  flex-wrap: wrap;
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
   list-style: none;
-  
+}
 
-  > li {
-    border: 1px solid rgb(74, 68, 68);
-    padding: 3px 35px;
-    border-radius: 5px;
-    width: 250px;
-  }
+.movie {
+  text-align: center;
+}
+
+.movie img {
+  border-radius: 8px;
 }
