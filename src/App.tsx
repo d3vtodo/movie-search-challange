@@ -2,16 +2,22 @@ import Movies from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 import './App.css'
+import { FormEvent } from 'react'
 
 function App() {
-  const { movies } = useMovies()
   const { search, updateSearch, searchError } = useSearch()
+  const { movies, getMovies } = useMovies({ search })
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault()
+    getMovies()
+  }
 
   return (
     <div className="page">
       <header>
         <h1>Movie Search</h1>
-        <form className="form">
+        <form className="form" onSubmit={handleSubmit}>
           <input
             name="query"
             placeholder="Avengers, The Matrix, Imitation Game..."

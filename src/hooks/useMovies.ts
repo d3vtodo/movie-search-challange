@@ -1,19 +1,22 @@
-import WITH_RESULTS from '../mocks/with-results.json'
+import { useState } from 'react'
+import { MMovie } from '../types'
+import { searchMovies } from '../services/movies'
 
-export function useMovies() {
-  const movies = WITH_RESULTS.Search
+type useMoviesProps = {
+  search: string
+}
 
-  // fetch(`https://www.omdbapi.com/?apikey=b5064bd3&s=${searchInput}`)
-  //   .then(async (res) => await res.json())
-  //   .then((res) => setMoviesResult(res))
-  //   .catch((err) => console.error(err))
+export function useMovies({ search }: useMoviesProps) {
+  const [movies, setMovies] = useState<MMovie[]>([])
 
-  const mappedMovies = movies.map((movie) => ({
-    id: movie.imdbID,
-    poster: movie.Poster,
-    year: movie.Year,
-    title: movie.Title
-  }))
+  const getMovies = async () => {
+    if (search) {
+      const newMovies = await searchMovies({ search })
+      setMovies(newMovies)
+    } else {
+      setMovies([])
+    }
+  }
 
-  return { movies: mappedMovies }
+  return { movies, getMovies }
 }

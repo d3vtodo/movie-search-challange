@@ -1,5 +1,7 @@
+import { MMovie } from '../types'
+
 type MoviesProps = {
-  movies: { id: string; title: string; year: string; poster: string }[]
+  movies: MMovie[]
 }
 
 function MoviesList({ movies }: MoviesProps) {
