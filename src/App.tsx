@@ -19,7 +19,7 @@ function App() {
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newSearch = event.target.value
     updateSearch(newSearch)
-    debouncedGetMovies(search)
+    debouncedGetMovies(newSearch)
   }
 
   return (
