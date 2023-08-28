@@ -1,19 +1,27 @@
+body {
+  max-width: 1200px;
+}
+
 .page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 800px;
 }
 
 form {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
-  > input {
+  > div input {
     width: 300px;
+  }
+
+  .search-error {
+    color: red;
+    margin-top: 1px;
   }
 }
 

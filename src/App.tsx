@@ -6,7 +6,7 @@ import { FormEvent } from 'react'
 
 function App() {
   const { search, updateSearch, searchError } = useSearch()
-  const { movies, getMovies } = useMovies({ search })
+  const { movies, getMovies, loading } = useMovies({ search })
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -16,22 +16,21 @@ function App() {
   return (
     <div className="page">
       <header>
-        <h1>Movie Search</h1>
+        <h1 style={{ textAlign: 'center' }}>Movie Search</h1>
         <form className="form" onSubmit={handleSubmit}>
-          <input
-            name="query"
-            placeholder="Avengers, The Matrix, Imitation Game..."
-            value={search}
-            onChange={(e) => updateSearch(e.target.value)}
-          />
+          <div>
+            <input
+              placeholder="Avengers, The Matrix, Imitation Game..."
+              value={search}
+              onChange={(e) => updateSearch(e.target.value)}
+            />
+            {searchError && <p className="search-error">{searchError}</p>}
+          </div>
           <button type="submit">Search</button>
         </form>
-        {searchError && <p style={{ color: 'red' }}>{searchError}</p>}
       </header>
 
-      <main>
-        <Movies movies={movies} />
-      </main>
+      <main>{loading ? <p>Loading...</p> : <Movies movies={movies} />}</main>
     </div>
   )
 }
