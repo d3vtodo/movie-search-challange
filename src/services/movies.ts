@@ -1,7 +1,5 @@
 import { MMovie, MovieResponse } from '../types'
 
-const API_KEY = 'b5064bd3'
-
 interface SearchMoviesProps {
   search: string
 }
@@ -13,7 +11,9 @@ export async function searchMovies({
   if (search) {
     try {
       const response = await fetch(
-        `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`
+        `https://www.omdbapi.com/?apikey=${
+          import.meta.env.VITE_API_KEY
+        }&s=${search}`
       )
       const json = (await response.json()) as MovieResponse
 

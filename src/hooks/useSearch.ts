@@ -10,6 +10,7 @@ export function useSearch() {
       isFirstInput.current = search === ''
       return
     }
+
     if (search === '') {
       setSearchError(`Can't find empty movie`)
       return
